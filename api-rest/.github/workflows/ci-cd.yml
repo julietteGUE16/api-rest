@@ -35,4 +35,4 @@ jobs:
 
       # Étape 6 : Pousser l'image Docker vers DockerHub
       - name: Push Docker Image to DockerHub
-        run: docker push jujuguit/app-devops:1.0  # Pousser l'image Docker vers DockerHub
+        run: docker push jujuguit/app-devops:1.0  # Pousser l'image Docker vers DockerHub testttt

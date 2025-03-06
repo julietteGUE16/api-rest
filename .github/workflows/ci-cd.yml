@@ -23,7 +23,7 @@ jobs:
 
       # Étape 3 : Construire l'application avec Gradle
       - name: Build the application
-        run: gradle build  # Utilisation de Gradle pour construire l'application
+        run: ./gradlew build  # Utilisation de Gradle pour construire l'application
 
       # Étape 4 : Créer l'image Docker
       - name: Build Docker Image

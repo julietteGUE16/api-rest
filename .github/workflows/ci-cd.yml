@@ -24,10 +24,12 @@ jobs:
       # Étape 3 : Construire l'application avec Gradle
       - name: Build the application
         run: gradle build  # Utilisation de Gradle pour construire l'application
+        working-directory: ./api-rest
 
       # Étape 4 : Créer l'image Docker
       - name: Build Docker Image
         run: docker build -t jujuguit/app-devops:1.0 .  # Construire l'image Docker avec un tag spécifique
+        working-directory: ./api-rest
 
       # Étape 5 : Connexion à DockerHub
       - name: Login to DockerHub

@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main   # Le pipeline s'exécutera à chaque push sur la branche 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Choix du système d'exploitation pour l'exécution des étapes
+
+    steps:
+      # Étape 1 : Checkout du repository
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Récupère le code de ton repo
+
+      # Étape 2 : Configurer JDK 17 pour construire ton application Java
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Utilisation de JDK 17
+          distribution: 'temurin'  # Distribution OpenJDK
+
+      # Étape 3 : Construire l'application avec Gradle
+      - name: Build the application
+        run: gradle build  # Utilisation de Gradle pour construire l'application
+
+      # Étape 4 : Créer l'image Docker
+      - name: Build Docker Image
+        run: docker build -t jujuguit/app-devops:1.0 .  # Construire l'image Docker avec un tag spécifique
+
+      # Étape 5 : Connexion à DockerHub
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin  # Connexion à DockerHub en utilisant des secrets GitHub
+
+      # Étape 6 : Pousser l'image Docker vers DockerHub
+      - name: Push Docker Image to DockerHub
+        run: docker push jujuguit/app-devops:1.0  # Pousser l'image Docker vers DockerHub testttt
